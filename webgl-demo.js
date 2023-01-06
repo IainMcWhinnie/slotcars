@@ -7,6 +7,9 @@
 import { initBuffers } from "./init-buffers.js";
 import { drawScene } from "./draw-scene.js";
 
+let squareRotation = 0.0;
+let deltaTime = 0;
+
 main();
 
 
@@ -30,20 +33,30 @@ function main() {
 
 
     // Vertex shader program
+
     const vsSource = `
     attribute vec4 aVertexPosition;
+    attribute vec4 aVertexColor;
+
     uniform mat4 uModelViewMatrix;
     uniform mat4 uProjectionMatrix;
-    void main() {
-        gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+
+    varying lowp vec4 vColor;
+
+    void main(void) {
+    gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+    vColor = aVertexColor;
     }
     `;
 
-    console.log(typeof(vsSource));
+   
+    // Fragment shader program
 
     const fsSource = `
-    void main() {
-        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    varying lowp vec4 vColor;
+
+    void main(void) {
+    gl_FragColor = vColor;
     }
     `;
 
@@ -58,6 +71,7 @@ function main() {
         program: shaderProgram,
         attribLocations: {
             vertexPosition: gl.getAttribLocation(shaderProgram, "aVertexPosition"),
+            vertexColor: gl.getAttribLocation(shaderProgram, "aVertexColor"),
         },
         uniformLocations: {
             projectionMatrix: gl.getUniformLocation(shaderProgram, "uProjectionMatrix"),
@@ -70,8 +84,20 @@ function main() {
     // objects we'll be drawing.
     const buffers = initBuffers(gl);
 
-    // Draw the scene
-    drawScene(gl, programInfo, buffers);
+    let then = 0;
+
+    // Draw the scene repeatedly
+    function render(now) {
+        now *= 0.001; // convert to seconds
+        deltaTime = now - then;
+        then = now;
+
+        drawScene(gl, programInfo, buffers, squareRotation);
+        squareRotation += deltaTime;
+
+        requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
 }
 
 
