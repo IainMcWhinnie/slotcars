@@ -2,6 +2,7 @@
 const gameStates = {
     MainMenu: 0,
     OnePlayer: 1,
+    TwoPlayer: 2,
 }
 
 function createGame(ctx, width, height){

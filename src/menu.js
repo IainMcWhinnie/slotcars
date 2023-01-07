@@ -22,10 +22,9 @@ function menu(game, events){
         if (event.type == 'click'){
             // we need to check where :0
             if (buttons.onePlayerButton.area.isContainedIn(event.offsetX, event.offsetY)){
-                console.log("Pressed btton 1!!!");
                 nextState = gameStates.OnePlayer;
             }else if(buttons.twoPlayerButton.area.isContainedIn(event.offsetX, event.offsetY)){
-                console.log("Pressed btton 2!!!");
+                nextState = gameStates.TwoPlayer;
             }
         }
     }

@@ -1,10 +1,11 @@
 import { createEventBuffer } from "./src/events.js";
 import { menu } from "./src/menu.js";
 import { createGame, gameStates } from "./src/game.js";
-
-main();
+import { twoplayer } from "./src/twoplayer.js";
 
 var DEBUG = false;
+
+main();
 
 
 function main(){
@@ -23,6 +24,10 @@ function main(){
 
     // create the game
     const game = createGame(ctx, width, height);
+    if (DEBUG){
+        console.log("IN DEBUG MODE");
+        game.curState = gameStates.TwoPlayer;
+    }
 
     // Enter the gameloop
     gameloop(game, eventBuffer);
@@ -34,7 +39,6 @@ function gameloop(game, eventBuffer){
 
     function updateCanvas(now){
         if(startTime == undefined){
-            console.log(now);
             startTime = now;
         }
 
@@ -50,7 +54,10 @@ function gameloop(game, eventBuffer){
                 game.curState = menu(game, eventBuffer.events);
                 break;
             case gameStates.OnePlayer:
-                console.log('ooft');
+                console.log("one player");
+                break;
+            case gameStates.TwoPlayer:
+                game.curState = twoplayer(game, eventBuffer.events);
                 break;
             default:
                 alert('Error: Unknown state '+game.curState);
@@ -62,7 +69,7 @@ function gameloop(game, eventBuffer){
             if(!DEBUG){
                 requestAnimationFrame(updateCanvas);
             }else{
-                setTimeout(updateCanvas, 5000, 10);
+                setTimeout(updateCanvas, 10000, 10);
             }
         }else{
             // Display end screen and freeze
