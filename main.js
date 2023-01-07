@@ -4,7 +4,7 @@ import { createGame, gameStates } from "./src/game.js";
 
 main();
 
-var DEBUG = true;
+var DEBUG = false;
 
 
 function main(){
@@ -47,7 +47,10 @@ function gameloop(game, eventBuffer){
         // handles events
         switch(game.curState){
             case gameStates.MainMenu:
-                menu(game, eventBuffer.events);
+                game.curState = menu(game, eventBuffer.events);
+                break;
+            case gameStates.OnePlayer:
+                console.log('ooft');
                 break;
             default:
                 alert('Error: Unknown state '+game.curState);

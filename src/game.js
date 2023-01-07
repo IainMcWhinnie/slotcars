@@ -1,6 +1,7 @@
 
 const gameStates = {
     MainMenu: 0,
+    OnePlayer: 1,
 }
 
 function createGame(ctx, width, height){

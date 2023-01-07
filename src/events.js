@@ -9,9 +9,9 @@ function createEventBuffer(){
     }
 
     function handleEvent(event){
-        console.log(event);
+        //console.log(event);
         events.push(event);
-        console.log(events);
+        //console.log(events);
     }
 
 

@@ -1,3 +1,6 @@
+/// DEPRECIATED :)
+
+
 const monospaceWidthRatio = 0.56;
 const systemFont = 'Consolas';
 
