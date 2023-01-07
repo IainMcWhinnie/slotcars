@@ -14,4 +14,6 @@ A web browser game
 # Markdown experiment area
 
 Oh look some code
-    `It's me, the evil code`
+```
+    It's me, the evil code
+```
