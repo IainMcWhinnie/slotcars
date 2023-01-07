@@ -15,7 +15,7 @@ function createEventBuffer(){
     }
 
 
-    return {init,events}
+    return {init, events}
 }
 
 

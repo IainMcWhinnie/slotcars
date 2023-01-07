@@ -17,3 +17,7 @@ Oh look some code
 ```
     It's me, the evil code
 ```
+
+# Some other links
+
+ - [Stop using java classes](https://medium.com/giant-machines/stop-using-javascript-classes-d0b6890ef097)

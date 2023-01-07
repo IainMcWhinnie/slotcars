@@ -1,6 +1,6 @@
-import { createEventBuffer } from "./events.js";
-import { menu } from "./menu.js";
-import { createGame, gameStates } from "./game.js";
+import { createEventBuffer } from "./src/events.js";
+import { menu } from "./src/menu.js";
+import { createGame, gameStates } from "./src/game.js";
 
 main();
 
@@ -8,6 +8,9 @@ var DEBUG = true;
 
 
 function main(){
+
+    const width = 640;
+    const height = 480;
 
     // Initiate the game
     const canvas = document.querySelector("#glcanvas");
@@ -19,7 +22,7 @@ function main(){
     eventBuffer.init(canvas);
 
     // create the game
-    const game = createGame(ctx);
+    const game = createGame(ctx, width, height);
 
     // Enter the gameloop
     gameloop(game, eventBuffer);
@@ -35,27 +38,19 @@ function gameloop(game, eventBuffer){
             startTime = now;
         }
 
-
-        //get current state
-        console.log(game.curState);
-
-        // get events - depends on user input and on previous game logic
-        while(eventBuffer.events.length){
-            console.log('Event: '+eventBuffer.events.shift());
-        }
-
         // clear the screen
-        game.ctx.clearRect(0,0,620,240);
+        game.ctx.clearRect(0,0,game.width,game.height);
 
         // update game logic - depends on state
-        // call a function to
-        // update screen
+
+        // each function draws the screen and then
+        // handles events
         switch(game.curState){
             case gameStates.MainMenu:
                 menu(game, eventBuffer.events);
                 break;
             default:
-
+                alert('Error: Unknown state '+game.curState);
         }
 
 
@@ -73,5 +68,4 @@ function gameloop(game, eventBuffer){
     }
 
     requestAnimationFrame(updateCanvas);
-    // updateCanvas();
 }
