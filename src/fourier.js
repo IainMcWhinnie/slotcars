@@ -1,54 +1,60 @@
-const noCoeffParts = 7;
-
 
 class FourierSeries{
-    constructor(realCoeff, imagCoeff){
-        this.realCoeff = realCoeff;
-        this.imagCoeff = imagCoeff;
+
+    constructor(coeffs){
+        this.coeffs = coeffs;
+        this.N = coeffs.length;
+        console.log(this.N);
     }
 
-    init(samples){
+    init(){
         this.derivative = this.getDerivative();
-        this.normalizedDistanceSamples = this.getCurveDistances(samples);
+        this.normalizedDistanceSamples = this.getCurveDistances();
     }
 
     eval(s){
-        var totalReal = 0;
-        var totalImag = 0;
-        for(var i=0; i<noCoeffParts; i++){
-            totalReal += math.cos((i+1)*s*2*math.pi)*this.realCoeff[i];
-            totalImag += math.sin((i+1)*s*2*math.pi)*this.imagCoeff[i];
+        var total = math.complex(0,0);
+        for(var i=0; i<this.N; i++){
+            var exponent = math.exp(math.multiply(math.i,s*i*math.pi*2))
+            total = math.add(total, math.multiply(exponent,this.coeffs[i]));
         }
-        return [totalReal, totalImag];
+        return [total.re, total.im];
     }
-
-    unitEval(dist, samples){
-        var s = this.unitParam(dist, samples);
+    
+    unitEval(dist){
+        var s = this.unitParam(dist);
         return this.eval(s);
     }
 
-    unitParam(dist, samples){
+    unitDerivEval(dist){
+        return this.derivative.unitEval(dist);
+    }
+
+    unitParam(dist){
         // If normalizedDistanceSamples describes a function that maps from 
-        //              s -> distance travelled
+        //              [0,1/N,2/N, ... ,1] -> distance travelled
         // then perform a reverse lookup to see which value of s matches the given distance
         var i = 0;
         while (i < this.normalizedDistanceSamples.length && dist > this.normalizedDistanceSamples[i]){
             i++;
         }
-        return samples[i];
+        return i*(1/this.N);
     }
 
-    getCurveDistances(samples){
+    getCurveDistances(){
 
         var distanceSamples = [];
         var distanceTravelled = 0;
 
+        var sampleIndex;
         // Integrate the speed to get distance travelled
-        for (var i = 0; i < samples.length; i++){
-            distanceTravelled += this.getSpeed(samples[i])/samples.length;
+        for (var i = 0; i < this.N; i++){
+            sampleIndex = i*(1/this.N);
+            distanceTravelled += this.getSpeed(sampleIndex)/this.N;
             distanceSamples.push(distanceTravelled);
         }
 
+        console.log('Length of the curve is ',distanceTravelled);
         
         // Normalize the distances, so that the total distance looks like 1
         var normalizedDistanceSamples = [];
@@ -65,13 +71,11 @@ class FourierSeries{
     }
 
     getDerivative(){
-        var newRealCoeff = [];
-        var newImagCoeff = [];
-        for (var i = 0; i < noCoeffParts; i++){
-            newRealCoeff.push(this.imagCoeff[i]*(i+1));
-            newImagCoeff.push(this.realCoeff[i]*-(i+1));
+        var newCoeffs = [];
+        for (var i = 0; i < this.N; i++){
+            newCoeffs.push(math.multiply(this.coeffs[i], math.multiply(math.i, 2*math.pi*i/this.N)));
         }
-        return new FourierSeries(newRealCoeff, newImagCoeff);
+        return new FourierSeries(newCoeffs);
     }
 
 

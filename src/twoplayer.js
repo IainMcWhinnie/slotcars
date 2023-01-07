@@ -1,7 +1,7 @@
 import { gameStates } from "./game.js";
 import { Track } from "./track.js";
 
-var delta = (1.0/100)
+var delta = (1.0/128)
 var samples = []
 for(var i = 0.0; i < 1+delta; i = i + delta){
     samples.push(i);
@@ -10,12 +10,11 @@ for(var i = 0.0; i < 1+delta; i = i + delta){
 
 function twoplayer(game, events){
 
-    console.log("playing with two!");
+    // console.log("playing with two!");
 
 
     var curTrack = new Track(game, samples);
-    curTrack.draw();
-    curTrack.drawUnitParamed();
+    curTrack.drawTrack();
 
     return gameStates.TwoPlayer;
 }

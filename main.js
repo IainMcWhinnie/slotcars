@@ -3,7 +3,7 @@ import { menu } from "./src/menu.js";
 import { createGame, gameStates } from "./src/game.js";
 import { twoplayer } from "./src/twoplayer.js";
 
-var DEBUG = false;
+var DEBUG = true;
 
 main();
 
