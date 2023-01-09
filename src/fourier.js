@@ -4,7 +4,6 @@ class FourierSeries{
     constructor(coeffs){
         this.coeffs = coeffs;
         this.N = coeffs.length;
-        console.log(this.N);
     }
 
     init(){
@@ -54,8 +53,6 @@ class FourierSeries{
             distanceSamples.push(distanceTravelled);
         }
 
-        console.log('Length of the curve is ',distanceTravelled);
-        
         // Normalize the distances, so that the total distance looks like 1
         var normalizedDistanceSamples = [];
         for (var i = 0; i < distanceSamples.length; i++){

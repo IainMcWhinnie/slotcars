@@ -6,6 +6,7 @@ A web browser game
 
  - [WebGL tutorial](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Adding_2D_content_to_a_WebGL_context)
  - [Mozilla Game Dev article](https://developer.mozilla.org/en-US/docs/Games/Introduction)
+ - [Mozilla Javascript Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
  - [Visual Studio Top Tips](https://www.youtube.com/watch?v=ifTF3ags0XI)
  - [Pair of Headphones I want](https://www.gear4music.com/Headphones/Shure-AONIC-50-Premium-Wireless-Noise-Cancelling-Headphones-Brown/4OZ7) 
  - [Lessons on 3D graphics](https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/building-basic-perspective-projection-matrix.html)

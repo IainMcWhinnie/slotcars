@@ -1,16 +1,31 @@
+import { menu } from "./menu.js";
+import { initTwoPlayer, twoplayer } from "./twoplayer.js";
 
 const gameStates = {
-    MainMenu: 0,
-    OnePlayer: 1,
-    TwoPlayer: 2,
+    MainMenu: {id: 0, function: menu},
+    OnePlayer: {id: 1, function: undefined},
+    TwoPlayer: {id: 2, function: twoplayer, init: initTwoPlayer},
 }
 
-function createGame(ctx, width, height){
+class Game{
+    constructor(ctx, width, height){
+        this.ctx = ctx;
+        this.width = width;
+        this.height = height;
 
-    var curState = gameStates.MainMenu;
-    var ctx = ctx;
+        this.curState = gameStates.MainMenu;
+    }
 
-    return {curState, ctx, width, height};
+    changeState(newState){
+        this.curState = newState;
+        if(this.curState.init){
+            this.curState.init(this);
+        }
+    }
+
+    executeCurState(events){
+        this.curState.function(this, events);
+    }
 }
 
-export {createGame, gameStates};
+export {Game, gameStates};

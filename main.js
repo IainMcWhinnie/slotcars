@@ -1,12 +1,9 @@
 import { createEventBuffer } from "./src/events.js";
-import { menu } from "./src/menu.js";
-import { createGame, gameStates } from "./src/game.js";
-import { twoplayer } from "./src/twoplayer.js";
+import { Game, gameStates } from "./src/game.js";
 
-var DEBUG = true;
+var DEBUG = false;
 
 main();
-
 
 function main(){
 
@@ -23,10 +20,10 @@ function main(){
     eventBuffer.init(canvas);
 
     // create the game
-    const game = createGame(ctx, width, height);
+    const game = new Game(ctx, width, height);
     if (DEBUG){
         console.log("IN DEBUG MODE");
-        game.curState = gameStates.TwoPlayer;
+        game.changeState(gameStates.TwoPlayer);
     }
 
     // Enter the gameloop
@@ -46,23 +43,7 @@ function gameloop(game, eventBuffer){
         game.ctx.clearRect(0,0,game.width,game.height);
 
         // update game logic - depends on state
-
-        // each function draws the screen and then
-        // handles events
-        switch(game.curState){
-            case gameStates.MainMenu:
-                game.curState = menu(game, eventBuffer.events);
-                break;
-            case gameStates.OnePlayer:
-                console.log("one player");
-                break;
-            case gameStates.TwoPlayer:
-                game.curState = twoplayer(game, eventBuffer.events);
-                break;
-            default:
-                alert('Error: Unknown state '+game.curState);
-        }
-
+        game.executeCurState(eventBuffer.events);
 
         // loop
         if(isStillPlaying){

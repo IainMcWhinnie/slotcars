@@ -2,9 +2,12 @@ import { TrackFunction } from "./trackfuction.js";
 
 class Track{
 
-    constructor(game, samples){
-        this.trackFunction = new TrackFunction(samples);
+    constructor(samples){
+        this.trackFunction = new TrackFunction();
         this.samples = samples;
+    }
+
+    setGame(game){
         this.game = game;
     }
 
