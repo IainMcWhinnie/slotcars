@@ -34,7 +34,7 @@ class FourierSeries{
         //              [0,1/N,2/N, ... ,1] -> distance travelled
         // then perform a reverse lookup to see which value of s matches the given distance
         var i = 0;
-        while (i < this.normalizedDistanceSamples.length && dist > this.normalizedDistanceSamples[i]){
+        while (i < this.normalizedDistanceSamples.length && dist >= this.normalizedDistanceSamples[i]){
             i++;
         }
         return i*(1/this.N);

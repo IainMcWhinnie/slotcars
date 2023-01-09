@@ -13,9 +13,6 @@ class Track{
 
     drawTrack(){
         // draw main track()
-        // var mainTrackFunc = function(dist){
-        //     return this.toCanvasSpace(this.trackFunction.unitEval(dist),0.8);
-        // }
         this.drawTrackWithOffset(0);
 
         // draw inside track()
@@ -38,34 +35,7 @@ class Track{
         this.game.ctx.moveTo(point[0], point[1]);
 
         for(var i = 1; i < this.samples.length; i++){
-            var point = this.toCanvasWithOffset(this.samples[i], offset);
-            // console.log(point);
-            this.game.ctx.lineTo(point[0], point[1]);
-        }
-        this.game.ctx.stroke();
-    }
-
-
-    unitEvalToCanvas(s){
-        var out = this.series.unitEval(s, this.samples);
-        return this.toCanvasSpace(out, 0.6);
-    }
-
-    drawUnitParamed(){
-
-        var point = this.unitEvalToCanvas(this.samples[0]);
-        this.game.ctx.moveTo(point[0], point[1]);
-
-        for(var i = 1; i < this.samples.length; i++){
-            var point = this.unitEvalToCanvas(this.samples[i]);
-
-            if(i%5==0){
-                this.game.ctx.fillStyle = 'red';
-                this.game.ctx.fillRect(point[0], point[1],4,4);
-            }else{
-                this.game.ctx.fillStlye = 'black';
-            }
-
+            point = this.toCanvasWithOffset(this.samples[i], offset);
             this.game.ctx.lineTo(point[0], point[1]);
         }
         this.game.ctx.stroke();

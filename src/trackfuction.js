@@ -3,7 +3,7 @@ import { FourierSeries } from "./fourier.js";
 class TrackFunction{
     constructor(){
 
-        var coeffs = [0,1,0.3,math.complex(0.1,0.4)];
+        var coeffs = [0,1,0,math.complex(0,0.9)];
         for(var i = coeffs.length; i < 128; i++){
             coeffs.push(0);
         }
@@ -22,9 +22,6 @@ class TrackFunction{
 
         var s = this.funcImplementation.unitParam(dist);
         var derivativeVec = this.funcImplementation.derivative.eval(s);
-        // var derivativeVec = this.funcImplementation.unitDerivEval(dist, this.samples);
-        
-        // console.log('The derivative was', derivativeVec);
 
         // Rotate the vector outwards and scale by the offset
         var rotX = derivativeVec[1];
@@ -34,8 +31,6 @@ class TrackFunction{
 
         rotX = rotX/rotVecSize * outwardsOffset;
         rotY = rotY/rotVecSize * outwardsOffset;
-
-        // console.log('wait what?', rotX, rotY);
 
         // Calculate new position from the main track position
         var mainTrackPos = this.getMainTrackPos(dist);
