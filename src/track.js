@@ -11,14 +11,14 @@ class Track{
     }
 
     drawTrack(){
-        // draw main track()
+        this.game.ctx.strokeStyle = '#222222'
+        this.game.ctx.lineWidth = 26;
         this.drawTrackWithOffset(0);
 
-        // draw inside track()
-        this.drawTrackWithOffset(-0.1);
-
-        // draw outside track()
-        this.drawTrackWithOffset(0.1);
+        this.game.ctx.lineWidth = 2;
+        this.game.ctx.strokeStyle = '#dd4444';
+        this.drawTrackWithOffset(-0.06);
+        this.drawTrackWithOffset(0.06);
     }
 
     toCanvasWithOffset(dist, offset){
@@ -30,6 +30,7 @@ class Track{
     }
 
     drawTrackWithOffset(offset){
+        this.game.ctx.beginPath()
         var start = this.toCanvasWithOffset(0, offset);
         this.game.ctx.moveTo(start[0], start[1]);
 
