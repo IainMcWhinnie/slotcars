@@ -8,6 +8,8 @@ class TrackFunction{
             coeffs.push(0);
         }
 
+        this.N = 128;
+
         this.funcImplementation = new FourierSeries(coeffs);
 
         this.funcImplementation.init();

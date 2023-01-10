@@ -2,9 +2,8 @@ import { TrackFunction } from "./trackfuction.js";
 
 class Track{
 
-    constructor(samples){
+    constructor(){
         this.trackFunction = new TrackFunction();
-        this.samples = samples;
     }
 
     setGame(game){
@@ -31,13 +30,15 @@ class Track{
     }
 
     drawTrackWithOffset(offset){
-        var point = this.toCanvasWithOffset(this.samples[0], offset);
-        this.game.ctx.moveTo(point[0], point[1]);
+        var start = this.toCanvasWithOffset(0, offset);
+        this.game.ctx.moveTo(start[0], start[1]);
 
-        for(var i = 1; i < this.samples.length; i++){
-            point = this.toCanvasWithOffset(this.samples[i], offset);
+        for(var dist = 0; dist < 1; dist+= 1/this.trackFunction.N){
+            var point = this.toCanvasWithOffset(dist, offset);
             this.game.ctx.lineTo(point[0], point[1]);
         }
+
+        this.game.ctx.lineTo(start[0], start[1]);
         this.game.ctx.stroke();
     }
 
