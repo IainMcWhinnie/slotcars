@@ -11,12 +11,15 @@ $ python -m http.server
 ```
 into the command line in the root directory.
 
+The code uses the [MathJS project](https://mathjs.org/). It is used when code is preferenced with `math.`.
+
 # Learning
 
 Mozilla provide some really useful documentation on Javascript and related parts which are useful to this project.
  - [Mozilla Game Dev article](https://developer.mozilla.org/en-US/docs/Games/Introduction)
  - [Mozilla Javascript Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
  - [Mozilla Canvas Docs](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/)
+
 
 Here are some other useful links.
  - [Visual Studio Top Tips](https://www.youtube.com/watch?v=ifTF3ags0XI)
