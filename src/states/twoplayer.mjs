@@ -1,5 +1,5 @@
-import { Track } from "./track.js";
-import { Car } from "./car.js";
+import { Track } from "../tracks/track.mjs";
+import { Car } from "../car.mjs";
 
 // Should the current track be a global variable
 // perhaps it should be part of Game?

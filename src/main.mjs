@@ -1,5 +1,5 @@
-import { createEventBuffer } from "./src/events.js";
-import { Game, gameStates } from "./src/game.js";
+import { createEventBuffer } from "./events.mjs";
+import { Game, gameStates } from "./game.mjs";
 
 var DEBUG = false;
 

@@ -1,5 +1,5 @@
-import { menu } from "./menu.js";
-import { initTwoPlayer, twoplayer } from "./twoplayer.js";
+import { menu } from "./states/menu.mjs";
+import { initTwoPlayer, twoplayer } from "./states/twoplayer.mjs";
 
 const gameStates = {
     MainMenu: {id: 0, function: menu},

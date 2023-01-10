@@ -1,4 +1,4 @@
-import { FourierSeries } from "./fourier.js";
+import { FourierSeries } from "./fourier.mjs";
 
 class TrackFunction{
     constructor(){

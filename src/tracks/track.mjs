@@ -1,5 +1,5 @@
-import { TrackFunction } from "./trackfuction.js";
-import { Test } from "./test.js";
+import { TrackFunction } from "./trackfuction.mjs";
+import { Test } from "./test.mjs";
 
 class Track{
 

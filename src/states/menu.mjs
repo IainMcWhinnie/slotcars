@@ -1,5 +1,5 @@
-import {TextWidget, ButtonWidget} from './widgets.js';
-import { gameStates } from './game.js';
+import {TextWidget, ButtonWidget} from '../widgets.mjs';
+import { gameStates } from '../game.mjs';
 
 function menu(game, events){
     
