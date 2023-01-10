@@ -4,14 +4,14 @@ function createEventBuffer(){
 
     function init(canvas){
         // Put out event listners on the canvas
+        document.addEventListener("keydown",handleEvent);
+        document.addEventListener('keyup',handleEvent);
         canvas.addEventListener('click', handleEvent);
 
     }
 
     function handleEvent(event){
-        //console.log(event);
         events.push(event);
-        //console.log(events);
     }
 
 

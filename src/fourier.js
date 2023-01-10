@@ -33,6 +33,7 @@ class FourierSeries{
         // If normalizedDistanceSamples describes a function that maps from 
         //              [0,1/N,2/N, ... ,1] -> distance travelled
         // then perform a reverse lookup to see which value of s matches the given distance
+        dist = dist%1.0;
         var i = 0;
         while (i < this.normalizedDistanceSamples.length && dist >= this.normalizedDistanceSamples[i]){
             i++;

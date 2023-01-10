@@ -1,9 +1,10 @@
 import { TrackFunction } from "./trackfuction.js";
+import { Test } from "./test.js";
 
 class Track{
 
     constructor(){
-        this.trackFunction = new TrackFunction();
+        this.trackFunction = new Test();//new TrackFunction();
     }
 
     setGame(game){
@@ -14,6 +15,7 @@ class Track{
         this.game.ctx.strokeStyle = '#222222'
         this.game.ctx.lineWidth = 26;
         this.drawTrackWithOffset(0);
+        
 
         this.game.ctx.lineWidth = 2;
         this.game.ctx.strokeStyle = '#dd4444';
