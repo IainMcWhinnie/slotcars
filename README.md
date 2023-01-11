@@ -11,7 +11,7 @@ $ python -m http.server
 ```
 into the command line in the root directory.
 
-The code uses the [MathJS project](https://mathjs.org/). It is used when code is preferenced with `math.`.
+The code uses the [MathJS project](https://mathjs.org/). It is used when code is preferenced with `math`.
 
 # Learning
 

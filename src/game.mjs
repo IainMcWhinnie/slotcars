@@ -1,12 +1,14 @@
 import { menu } from "./states/menu.mjs";
 import { initTwoPlayer, twoplayer } from "./states/twoplayer.mjs";
 
+// A list of all the possible game states
 const gameStates = {
     MainMenu: {id: 0, function: menu},
     OnePlayer: {id: 1, function: undefined},
     TwoPlayer: {id: 2, function: twoplayer, init: initTwoPlayer},
 }
 
+// A state pattern that stores the current state
 class Game{
     constructor(ctx, width, height){
         this.ctx = ctx;
@@ -23,8 +25,8 @@ class Game{
         }
     }
 
-    executeCurState(events){
-        this.curState.function(this, events);
+    executeCurState(events, now){
+        this.curState.function(this, events, now);
     }
 }
 

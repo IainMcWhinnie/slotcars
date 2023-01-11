@@ -43,7 +43,7 @@ function gameloop(game, eventBuffer){
         game.ctx.clearRect(0,0,game.width,game.height);
 
         // update game logic - depends on state
-        game.executeCurState(eventBuffer.events);
+        game.executeCurState(eventBuffer.events, now);
 
         // loop
         if(isStillPlaying){

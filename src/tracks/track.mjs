@@ -46,7 +46,7 @@ class Track{
     }
 
     toCanvasSpace(xy, scale){
-        var newX = this.game.width*0.5*(xy[0]*scale+1);
+        var newX = this.game.width*0.5+(xy[0]*scale)*this.game.height*0.5;
         var newY = this.game.height*0.5*(1-(xy[1]*scale));
         return [newX, newY];
     }

@@ -1,7 +1,7 @@
 import {TextWidget, ButtonWidget} from '../widgets.mjs';
 import { gameStates } from '../game.mjs';
 
-function menu(game, events){
+function menu(game, events, now){
     
     // Draw the main menu on the canvas
     var buttons = drawMainMenu(game);

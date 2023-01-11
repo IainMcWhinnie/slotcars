@@ -1,3 +1,7 @@
+const accelRate = 0.5;
+const frictionRate = 0.5;
+const crashForce = 0.25;
+
 
 class Car{
     constructor(track, offset, colour){
@@ -6,41 +10,97 @@ class Car{
         this.speed = 0;
         this.offset = offset;
         this.colour = colour;
-
         this.width = 10;
         this.length = 20;
+        this.isAccel = false;
+
+        this.curPosition;
+        this.lastPosition;
+        this.derivative;
+        this.angle;
+
+        this.lastUpdateTime = 0;
+
+    }
+
+    init(){
+        this.lastPosition = this.track.toCanvasWithOffset(-0.01, this.offset);
+        this.curPosition = this.track.toCanvasWithOffset(this.distPos, this.offset);
+
+        this.getDerivativeAtPos(0.01);
+        this.getCurrentAngle();
+        this.prevDerivative = this.derivative;
     }
 
     getPositionOnCanvas(){
-        return this.track.toCanvasWithOffset(this.distPos, this.offset);
+        this.curPosition = this.track.toCanvasWithOffset(this.distPos, this.offset);
+        return this.curPosition;
     }
 
-    update(){
-        this.distPos += this.speed;
+    update(now){
+
+        // Units: 1 unit distance per second
+        var dt = (now-this.lastUpdateTime)/1000
+
+        // Accelerate
+        if (this.isAccel){
+            this.speed += accelRate*dt;
+        }
+
+        // Apply friction
+        if (! this.isAccel){
+            this.speed -= this.speed*(1-frictionRate)*dt;
+        }
+
+        // // Apply static friction
+        // if (! this.isAccel && this.speed < 0.02){
+        //     this.speed = 0;
+        // }
+        
+        // calculate derivative of speed
+        var prevDerivative = this.derivative;
+        this.getDerivativeAtPos(dt);
+        this.getCurrentAngle();
+
+        // Calculate force on car
+        var cornerAccel = math.subtract(this.derivative, this.prevDerivative);
+        if(math.norm(cornerAccel) > crashForce){
+            console.log('crash');
+        }
+
+        // Move forward
+        this.distPos += this.speed*dt;
+
+
+        this.lastPosition = this.curPosition;
+        this.lastUpdateTime = now;
     }
 
-    getRotatedOffsets(angleRadians){
-        // car points to the right
+    getRotatedCorners(angleRadians){
+        // car points to the right before rotation
         var corners = [[10,5], [10,-5], [-10,-5], [-10,5]];
         var mathOutput = math.multiply(math.rotationMatrix(angleRadians), math.matrixFromColumns(...corners));
         return mathOutput._data;
     }
 
+    getDerivativeAtPos(dt){
+        this.derivative = math.multiply(math.subtract(this.curPosition, this.lastPosition),dt);
+        // console.log(math.norm(this.derivative));
+    }
+
     getCurrentAngle(){
-        var d_dist = 0.01;
-        var cur = this.track.toCanvasWithOffset(this.distPos, this.offset);
-        var cur_d = this.track.toCanvasWithOffset(this.distPos+d_dist, this.offset);
-        var diff = math.subtract(cur_d, cur);
-        var angle = math.acos(diff[0]/math.norm(diff));
-        if(diff[1]<0){
-            angle = math.pi*2-angle;
+        var derivNorm = math.norm(this.derivative);
+        if (derivNorm != 0){
+            this.angle = math.acos(this.derivative[0]/derivNorm);
+            if(this.derivative[1]<0){
+                this.angle = math.pi*2-this.angle;
+            }
         }
-        return angle;
     }
 
     draw(game){
         var canvasPos = this.getPositionOnCanvas();
-        var offsets = this.getRotatedOffsets(this.getCurrentAngle());
+        var offsets = this.getRotatedCorners(this.angle);
         game.ctx.fillStyle = this.colour;
 
         game.ctx.beginPath();

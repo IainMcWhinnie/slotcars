@@ -7,65 +7,49 @@ var curTrack = new Track();
 var car1 = new Car(curTrack,0.06,'red');
 var car2 = new Car(curTrack,-0.06,'blue');
 
-// Should be properties of car
-var acceleratingCar1;
-var acceleratingCar2;
 
 function initTwoPlayer(game){
-    curTrack.game = game;
+    curTrack.setGame(game);
+    car1.init();
+    car2.init();
 }
 
-function twoplayer(game, events){
-    
+function twoplayer(game, events, now){
+    // draw track
     curTrack.drawTrack();
 
-    // draw car
-    car1.draw(game);
-    car2.draw(game);
-
-    // update car
+    // control cars
     var event;
     while(events.length){
         event = events.shift();
         
         if (event.type == 'keydown'){
-            if (!acceleratingCar1 && event.code == 'Space'){
-                acceleratingCar1 = true;
+            if (!car1.isAccel && event.code == 'Space'){
+                car1.isAccel = true;
             }
-            if (!acceleratingCar2 && event.code == 'KeyH'){
+            if (!car2.isAccel && event.code == 'KeyH'){
                 car2.speed += 0.0005;
-                acceleratingCar2 = true;
+                car2.isAccel = true;
             }
         }
 
         if (event.type == 'keyup'){
-            if (acceleratingCar1 && event.code == 'Space'){
-                acceleratingCar1 = false;
+            if (car1.isAccel && event.code == 'Space'){
+                car1.isAccel = false;
             }
-            if (acceleratingCar2 && event.code == 'KeyH'){
-                acceleratingCar2 = false;
+            if (car2.isAccel && event.code == 'KeyH'){
+                car2.isAccel = false;
             }
         }
     }
 
-    // Accelerate
-    if (acceleratingCar1){
-        car1.speed += 0.00005;
-    }
-    if (acceleratingCar2){
-        car2.speed += 0.00005;
-    }
+    // update cars
+    car1.update(now);
+    car2.update(now);
 
-    // Apply friction
-    if (! acceleratingCar1){
-        car1.speed *= 0.98;
-    }
-    if (! acceleratingCar2){
-        car2.speed *= 0.98;
-    }
-
-    car1.update();
-    car2.update();
+    // draw cars
+    car1.draw(game);
+    car2.draw(game);
 }
 
 
