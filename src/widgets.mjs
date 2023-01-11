@@ -22,8 +22,8 @@ class Area{
     }
 
     isContainedIn(cursorX, cursorY){
-        if (this.width > cursorX-this.x &&  cursorX-this.x > -this.width){
-            if (-this.height < cursorY-this.y && cursorY-this.y < this.height){
+        if (this.width/2 > cursorX-this.x &&  cursorX-this.x > -this.width/2){
+            if (-this.height/2 < cursorY-this.y && cursorY-this.y < this.height/2){
                 return true;
             }
         }

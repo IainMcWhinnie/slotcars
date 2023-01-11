@@ -20,7 +20,6 @@ class Car{
         this.angle;
 
         this.lastUpdateTime = 0;
-
     }
 
     init(){
@@ -63,10 +62,15 @@ class Car{
         this.getCurrentAngle();
 
         // Calculate force on car
-        var cornerAccel = math.subtract(this.derivative, this.prevDerivative);
-        if(math.norm(cornerAccel) > crashForce){
-            console.log('crash');
+        var cornerAccel = math.norm(math.subtract(this.derivative, this.prevDerivative))*this.speed;
+        if (this.colour == 'red'){
+
+            // console.log(cornerAccel);
         }
+        // if(cornerAccel > crashForce){
+        //     console.log('crash');
+        // }
+        this.angle *= (1+cornerAccel);
 
         // Move forward
         this.distPos += this.speed*dt;
@@ -78,7 +82,7 @@ class Car{
 
     getRotatedCorners(angleRadians){
         // car points to the right before rotation
-        var corners = [[10,5], [10,-5], [-10,-5], [-10,5]];
+        var corners = [[this.length/2,this.width/2], [this.length/2,-this.width/2], [-this.length/2,-this.width/2], [-this.length/2,this.width/2]];
         var mathOutput = math.multiply(math.rotationMatrix(angleRadians), math.matrixFromColumns(...corners));
         return mathOutput._data;
     }

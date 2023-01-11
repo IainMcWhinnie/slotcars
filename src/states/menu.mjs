@@ -1,10 +1,34 @@
 import {TextWidget, ButtonWidget} from '../widgets.mjs';
 import { gameStates } from '../game.mjs';
 
+var clicks = [];
+var img = new Image();
+
+function initMenu(game){
+    console.log('help');
+    img.src = "./../../images/car.jpg";
+    img.onload = () => {console.log('loaded')};
+    console.log(img);
+}
+
 function menu(game, events, now){
     
+    game.ctx.drawImage(img, 0,0 );
     // Draw the main menu on the canvas
     var buttons = drawMainMenu(game);
+
+    for(var i = 0; i<clicks.length; i++){
+        var point = clicks[i];
+        game.ctx.beginPath();
+        game.ctx.moveTo(point[0],point[1]-10);
+        game.ctx.lineTo(point[0],point[1]+10);
+        game.ctx.stroke();
+
+        game.ctx.beginPath();
+        game.ctx.moveTo(point[0]-10,point[1]);
+        game.ctx.lineTo(point[0]+10,point[1]);
+        game.ctx.stroke();
+    }
 
     // returns the clickable areas
     // so we check for any click events
@@ -16,15 +40,24 @@ function menu(game, events, now){
 
         if (event.type == 'click'){
             // we need to check where :0
-            if (buttons.onePlayerButton.area.isContainedIn(event.offsetX, event.offsetY)){
+            // Firefox disagrees with event.offsetX and just gives 0
+            // var x = event.offsetX;
+            // var y = event.offsetY;
+
+            var x = event.clientX - 13;
+            var y = event.clientY - 13;
+
+            clicks.push([x,y]);
+
+
+
+            if (buttons.onePlayerButton.area.isContainedIn(x,y)){
                 game.changeState(gameStates.OnePlayer);
-            }else if(buttons.twoPlayerButton.area.isContainedIn(event.offsetX, event.offsetY)){
+            }else if(buttons.twoPlayerButton.area.isContainedIn(x,y)){
                 game.changeState(gameStates.TwoPlayer);
             }
         }
     }
-
-
 }
 
 function drawMainMenu(game){
@@ -42,4 +75,4 @@ function drawMainMenu(game){
 
 }
 
-export {menu};
+export {menu, initMenu};

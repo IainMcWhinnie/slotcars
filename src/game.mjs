@@ -1,9 +1,9 @@
-import { menu } from "./states/menu.mjs";
+import { menu, initMenu } from "./states/menu.mjs";
 import { initTwoPlayer, twoplayer } from "./states/twoplayer.mjs";
 
 // A list of all the possible game states
 const gameStates = {
-    MainMenu: {id: 0, function: menu},
+    MainMenu: {id: 0, function: menu, init: initMenu},
     OnePlayer: {id: 1, function: undefined},
     TwoPlayer: {id: 2, function: twoplayer, init: initTwoPlayer},
 }
@@ -15,7 +15,8 @@ class Game{
         this.width = width;
         this.height = height;
 
-        this.curState = gameStates.MainMenu;
+        this.curState;
+        this.changeState(gameStates.MainMenu);
     }
 
     changeState(newState){

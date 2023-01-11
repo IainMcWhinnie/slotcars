@@ -6,14 +6,13 @@ var DEBUG = false;
 main();
 
 function main(){
-
-    const width = 640;
-    const height = 480;
-
+    
     // Initiate the game
     const canvas = document.querySelector("#glcanvas");
     const ctx = canvas.getContext('2d');
 
+    const width = canvas.width;
+    const height = canvas.height;
 
     // Create an event buffer
     const eventBuffer = createEventBuffer();
