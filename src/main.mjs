@@ -25,6 +25,9 @@ function main(){
         game.changeState(gameStates.TwoPlayer);
     }
 
+    // initiate the game states
+    game.initStates();
+
     // Enter the gameloop
     gameloop(game, eventBuffer);
 }

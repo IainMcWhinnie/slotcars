@@ -15,15 +15,16 @@ class Game{
         this.width = width;
         this.height = height;
 
-        this.curState;
-        this.changeState(gameStates.MainMenu);
+        this.curState = gameStates.MainMenu;
     }
 
     changeState(newState){
         this.curState = newState;
-        if(this.curState.init){
-            this.curState.init(this);
-        }
+    }
+
+    initStates(){
+        gameStates.MainMenu.init(this);
+        gameStates.TwoPlayer.init(this);
     }
 
     executeCurState(events, now){
