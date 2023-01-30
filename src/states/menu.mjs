@@ -6,7 +6,7 @@ var img = new Image();
 
 function initMenu(game){
     console.log('help');
-    img.src = "/images/car.jpg";
+    img.src = (new URL('images/car.jpg', document.URL)).href;
     console.log(img.naturalWidth);
     img.onload = () => {console.log('loaded')};
     console.log(img);
