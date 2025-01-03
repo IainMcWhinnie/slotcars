@@ -13,8 +13,18 @@ class Test{
     }
 
     getOffsetTrackPos(dist, outwardsOffset){
-        var scalar = (1+outwardsOffset);
-        return [2*math.cos(2*math.pi*dist)*scalar, math.sin(4*math.pi*dist)*scalar];
+        var pos = this.getMainTrackPos(dist);
+        var nmal = this.getNormal(dist);
+        return [pos[0]+outwardsOffset*nmal[0], 
+                pos[1]+outwardsOffset*nmal[1]];
+    }
+
+    getNormal(dist){
+        var norm = math.sqrt(math.sin(2*math.pi*dist)**2 + 
+                            math.cos(4*math.pi*dist)**2);
+        var unitTangent = [1/norm * -1*math.sin(2*math.pi*dist),
+                1/norm * math.cos(4*math.pi*dist)];
+        return [-unitTangent[1],unitTangent[0]];
     }
 }
 

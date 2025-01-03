@@ -1,6 +1,9 @@
-const accelRate = 0.5;
+const accelRate = 0.25;
 const frictionRate = 0.5;
 const crashForce = 0.25;
+
+var MAX_SPEED = 0.7
+
 
 
 class Car{
@@ -42,7 +45,7 @@ class Car{
         var dt = (now-this.lastUpdateTime)/1000
 
         // Accelerate
-        if (this.isAccel){
+        if (this.isAccel && this.speed < MAX_SPEED){
             this.speed += accelRate*dt;
         }
 
@@ -70,7 +73,7 @@ class Car{
         // if(cornerAccel > crashForce){
         //     console.log('crash');
         // }
-        this.angle *= (1+cornerAccel);
+        this.angle *= (1);
 
         // Move forward
         this.distPos += this.speed*dt;
