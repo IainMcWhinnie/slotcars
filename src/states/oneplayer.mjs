@@ -1,5 +1,6 @@
 import { Track } from "../tracks/track.mjs";
 import { Car } from "../car.mjs";
+import { TextWidget } from "../widgets.mjs";
 
 var track =  new Track();
 var car = new Car(track,0,'red');
@@ -16,6 +17,13 @@ function oneplayer(game, events, now){
     //     track.drawNormals(i);
     // }
 
+    drawStatsBox(game, [
+        {'car.isAccel: ': car.isAccel},
+        {'car.speed': car.speed},
+        {'car.curPosition':car.curPosition},
+        {'car.distPos': car.distPos},
+        {'norm(car.derivative)': math.norm(car.derivative)}
+    ]);
 
     var event;
     while(events.length){
@@ -34,6 +42,16 @@ function oneplayer(game, events, now){
 
     car.update(now);
     car.draw(game);
+}
+
+function drawStatsBox(game, stats){
+    var xPos = 10;
+    for(var i=0; i<stats.length; i++){
+        game.ctx.fillStyle = 'black';
+        game.ctx.font = 10+'px '+'Consolas';
+        game.ctx.fillText(JSON.stringify(stats[i]), 5, xPos);
+        xPos += 10;
+    }
 }
 
 export {oneplayer, initOnePlayer}
