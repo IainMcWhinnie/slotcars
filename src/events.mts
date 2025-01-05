@@ -1,8 +1,4 @@
-
-export type EventBuffer = {
-    init: (canvas: HTMLCanvasElement) => void;
-    handler: (event: Event) => void;
-};
+import { EventBuffer } from "./types";
 
 
 export function createEventBuffer() : EventBuffer{
