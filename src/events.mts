@@ -2,7 +2,7 @@ import { EventBuffer } from "./types";
 
 
 export function createEventBuffer() : EventBuffer{
-    var events : Event[] = [];
+    const events : Event[] = [];
 
     function init(canvas : HTMLCanvasElement){
         document.addEventListener("keydown", handleEvent);
@@ -14,5 +14,5 @@ export function createEventBuffer() : EventBuffer{
         events.push(event);
     }
 
-    return {init: init, handler : handleEvent}
+    return {init: init, events : events}
 }

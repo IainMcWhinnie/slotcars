@@ -5,5 +5,5 @@ type State = {
 
 export type EventBuffer = {
     init: (canvas: HTMLCanvasElement) => void;
-    handler: (event: Event) => void;
+    events: Events[];
 };
