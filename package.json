@@ -1,0 +1,35 @@
+{
+  "name": "jest-test",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jest",
+    "build": "webpack",
+    "host": "python3 -m http.server -d ./dist",
+    "lint": "eslint ./src"
+  },
+  "author": "",
+  "license": "ISC",
+  "private": "true",
+  "description": "",
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-typescript": "^7.26.0",
+    "@eslint/js": "^9.17.0",
+    "@types/jest": "^29.5.14",
+    "babel-jest": "^29.7.0",
+    "babel-loader": "^9.2.1",
+    "eslint": "^9.17.0",
+    "jest": "^29.7.0",
+    "jest-canvas-mock": "^2.5.2",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.19.0",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "mathjs": "^14.0.1"
+  }
+}

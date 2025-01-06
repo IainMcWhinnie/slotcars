@@ -18,18 +18,7 @@ function menu(game, events, now){
     // Draw the main menu on the canvas
     var buttons = drawMainMenu(game);
 
-    for(var i = 0; i<clicks.length; i++){
-        var point = clicks[i];
-        game.ctx.beginPath();
-        game.ctx.moveTo(point[0],point[1]-10);
-        game.ctx.lineTo(point[0],point[1]+10);
-        game.ctx.stroke();
-
-        game.ctx.beginPath();
-        game.ctx.moveTo(point[0]-10,point[1]);
-        game.ctx.lineTo(point[0]+10,point[1]);
-        game.ctx.stroke();
-    }
+    drawCrossHairs(game, clicks)
 
     // returns the clickable areas
     // so we check for any click events
@@ -56,6 +45,8 @@ function menu(game, events, now){
                 game.changeState(gameStates.OnePlayer);
             }else if(buttons.twoPlayerButton.area.isContainedIn(x,y)){
                 game.changeState(gameStates.TwoPlayer);
+            }else if(buttons.settingsButton.area.isContainedIn(x,y)){
+                game.changeState(gameStates.Settings);
             }
         }
     }
@@ -72,8 +63,26 @@ function drawMainMenu(game){
     var twoPlayerButton = new ButtonWidget(game.width*3/4, game.height*2/3, "2 Player", 200, 60, 'black', '#45bfb9');
     twoPlayerButton.draw(game);
 
-    return {onePlayerButton, twoPlayerButton};
+    var settingsButton = new ButtonWidget(game.width*3/4, game.height*5/6, "Settings", 200, 60, 'black', '#45bfb9');
+    settingsButton.draw(game);
 
+    return {onePlayerButton, twoPlayerButton, settingsButton};
+
+}
+
+function drawCrossHairs(game, clicks){
+    for(var i = 0; i<clicks.length; i++){
+        var point = clicks[i];
+        game.ctx.beginPath();
+        game.ctx.moveTo(point[0],point[1]-10);
+        game.ctx.lineTo(point[0],point[1]+10);
+        game.ctx.stroke();
+
+        game.ctx.beginPath();
+        game.ctx.moveTo(point[0]-10,point[1]);
+        game.ctx.lineTo(point[0]+10,point[1]);
+        game.ctx.stroke();
+    }
 }
 
 export {menu, initMenu};

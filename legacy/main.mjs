@@ -6,6 +6,7 @@ var DEBUG = false;
 main();
 
 function main(){
+    console.log('Here');
     
     // Initiate the game
     const canvas = document.querySelector("#glcanvas");
@@ -42,7 +43,7 @@ function gameloop(game, eventBuffer){
         }
 
         // clear the screen
-        game.ctx.clearRect(0,0,game.width,game.height);
+        game.ctx.clearRect(0, 0, game.width, game.height);
 
         // update game logic - depends on state
         game.executeCurState(eventBuffer.events, now);

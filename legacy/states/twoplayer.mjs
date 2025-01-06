@@ -28,7 +28,7 @@ function twoplayer(game, events, now){
                 car1.isAccel = true;
             }
             if (!car2.isAccel && event.code == 'KeyH'){
-                car2.speed += 0.0005;
+                // car2.speed += 0.0005;
                 car2.isAccel = true;
             }
         }
