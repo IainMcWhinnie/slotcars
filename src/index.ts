@@ -1,7 +1,7 @@
-import { createEventBuffer } from "./events.mjs";
-import { Game } from "./game.mjs";
+import { createEventBuffer } from "./events";
+import { Game } from "./game";
 import { EventBuffer } from "./types";
-
+// import * as math from 'mathjs';
 
 main();
 

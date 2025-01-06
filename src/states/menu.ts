@@ -1,5 +1,5 @@
-import { TextWidget, ButtonWidget, Widget } from "../canvas/widgets.mjs";
-import { Game } from "../game.mjs";
+import { TextWidget, ButtonWidget, Widget } from "../canvas/widgets";
+import { Game } from "../game";
 import { EventBuffer, State } from "../types";
 
 
@@ -10,6 +10,7 @@ export const MainMenuState : State = {
 
 const img = new Image();
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function mainloop(game : Game, eventBuffer : EventBuffer, _now : number){
     game.ctx.drawImage(img, 0, 0);
 
@@ -20,10 +21,12 @@ function mainloop(game : Game, eventBuffer : EventBuffer, _now : number){
     while(eventBuffer.events.length){
         event = eventBuffer.events.shift();
 
-        if (event.type == 'click'){
+        const potentialClick = event as MouseEvent;
+
+        if (potentialClick && potentialClick.type == 'click'){
             const cursorPos = {
-                x: event.clientX - 13,
-                y: event.clientY - 13,
+                x: potentialClick.clientX - 13,
+                y: potentialClick.clientY - 13,
             }
 
             widgets.forEach((widget : Widget) => {
@@ -35,6 +38,7 @@ function mainloop(game : Game, eventBuffer : EventBuffer, _now : number){
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function init(_game : Game){
     img.src = (new URL('images/car.jpg', document.URL)).href;
 }

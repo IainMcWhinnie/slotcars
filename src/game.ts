@@ -1,4 +1,4 @@
-import { MainMenuState } from "./states/menu.mjs";
+import { MainMenuState } from "./states/menu";
 import { EventBuffer, State } from "./types";
 
 

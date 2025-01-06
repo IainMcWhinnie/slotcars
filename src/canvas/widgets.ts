@@ -1,4 +1,4 @@
-import { Game } from "../game.mjs";
+import { Game } from "../game";
 
 const monospaceWidthRatio = 0.56;
 const systemFont = 'Consolas';
