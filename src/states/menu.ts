@@ -1,6 +1,7 @@
 import { TextWidget, ButtonWidget, Widget } from "../canvas/widgets";
 import { Game } from "../game";
 import { EventBuffer, State } from "../types";
+import { OnePlayerState } from "./oneplayer";
 
 
 export const MainMenuState : State = {
@@ -16,17 +17,15 @@ function mainloop(game : Game, eventBuffer : EventBuffer, _now : number){
 
     const widgets = drawMainMenu(game);
 
-    let event;
+    let event : MouseEvent;
 
-    while(eventBuffer.events.length){
-        event = eventBuffer.events.shift();
+    while(eventBuffer.mouseEventBuffer.events.length){
+        event = eventBuffer.mouseEventBuffer.events.shift() as MouseEvent;
 
-        const potentialClick = event as MouseEvent;
-
-        if (potentialClick && potentialClick.type == 'click'){
+        if (event.type == 'click'){
             const cursorPos = {
-                x: potentialClick.clientX - 13,
-                y: potentialClick.clientY - 13,
+                x: event.clientX - 13,
+                y: event.clientY - 13,
             }
 
             widgets.forEach((widget : Widget) => {
@@ -48,7 +47,7 @@ function drawMainMenu (game : Game) : Widget[] {
     title.draw(game);
 
     const onePlayerButton = new ButtonWidget(game.width/4, game.height*2/3, "1 Player", 
-        200, 60, 'black', '#45bfb9', (game) => {game.changeState(MainMenuState)});
+        200, 60, 'black', '#45bfb9', (game) => {game.changeState(OnePlayerState)});
     onePlayerButton.draw(game);
 
     const twoPlayerButton = new ButtonWidget(game.width*3/4, game.height*2/3, "2 Player", 

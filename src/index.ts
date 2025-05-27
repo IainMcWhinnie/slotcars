@@ -1,5 +1,6 @@
 import { createEventBuffer } from "./events";
 import { Game } from "./game";
+import { mathmain } from "./mathstest";
 import { EventBuffer } from "./types";
 // import * as math from 'mathjs';
 
@@ -15,6 +16,7 @@ function makeCanvas(width : number, height : number) : HTMLCanvasElement{
 }
     
 function main(){
+    mathmain();
     const width = 600;
     const height = 480;
 
@@ -22,10 +24,10 @@ function main(){
     const ctx = canvas.getContext('2d');
     if ( ctx ){
         const game = new Game(width, height, ctx);
-        
-        const eventBuffer = createEventBuffer();
-        eventBuffer.init(canvas);
 
+        const eventBuffer : EventBuffer = createEventBuffer();
+        eventBuffer.keyEventBuffer.init();
+        eventBuffer.mouseEventBuffer.init(canvas);
 
         game.initStates();
 

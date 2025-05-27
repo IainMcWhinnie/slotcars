@@ -1,7 +1,7 @@
-import { Game } from "../game";
-import { MainMenuState } from "../states/menu";
+import { Game } from "../src/game";
+import { MainMenuState } from "../src/states/menu";
 import 'jest-canvas-mock';
-import { EventBuffer, State } from "../types";
+import { EventBuffer, State, KeyEventBuffer, MouseEventBuffer } from "../src/types";
 
 test('Context can be mocked', () => {
     const canvas : HTMLCanvasElement = document.createElement('canvas');
@@ -40,17 +40,20 @@ test('Game can execute current state', () => {
     const canvas : HTMLCanvasElement = document.createElement('canvas');
     const context = canvas.getContext('2d');
     let hasBeenExecuted = false;
-    const eventBuffer : EventBuffer = {
+    const blankEventBuffer = {
         init : () => {},
         events:[]
-    }
+    };
+    const keyEventBuffer = blankEventBuffer as KeyEventBuffer;
+    const mouseEventBuffer = blankEventBuffer as MouseEventBuffer;
+    const eventBuffer : EventBuffer = {keyEventBuffer, mouseEventBuffer};
     const newState : State = {
         init: () => {},
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         mainloop: (game : Game, eventBuffer : EventBuffer, now : number) => {
             hasBeenExecuted = true;
         }
-    }
+    };
 
     if (context){
         const game = new Game(200, 200, context);

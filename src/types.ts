@@ -6,6 +6,16 @@ export type State = {
 }
 
 export type EventBuffer = {
+    keyEventBuffer : KeyEventBuffer;
+    mouseEventBuffer : MouseEventBuffer;
+};
+
+export type KeyEventBuffer = {
+    init: () => void;
+    events: KeyboardEvent[];
+};
+
+export type MouseEventBuffer = {
     init: (canvas: HTMLCanvasElement) => void;
-    events: Event[];
+    events: MouseEvent[];
 };

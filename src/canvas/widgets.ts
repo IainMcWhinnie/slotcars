@@ -3,7 +3,7 @@ import { Game } from "../game";
 const monospaceWidthRatio = 0.56;
 const systemFont = 'Consolas';
 
-type Point = {
+export type CanvasPoint = {
     x : number;
     y : number;
 }
@@ -27,19 +27,19 @@ class Area{
         this.height = height;
     }
 
-    getBottomLeft() : Point{
+    getBottomLeft() : CanvasPoint{
         const newX = this.x - this.width/2;
         const newY = this.y + this.height/2;
         return {x : newX, y : newY};
     }
 
-    getTopLeft() : Point{
+    getTopLeft() : CanvasPoint{
         const newX = this.x - this.width/2;
         const newY = this.y - this.height/2;
         return {x : newX, y : newY};
     }
 
-    containsPoint (cursorPos : Point) : boolean{
+    containsPoint (cursorPos : CanvasPoint) : boolean{
         if (this.width/2 > cursorPos.x-this.x &&  
             cursorPos.x-this.x > -this.width/2 &&
             -this.height/2 < cursorPos.y-this.y && 
@@ -65,7 +65,7 @@ export class TextWidget implements Widget{
     }
 
     draw( game : Game ){
-        const position : Point = this.area.getBottomLeft();
+        const position : CanvasPoint = this.area.getBottomLeft();
 
         game.ctx.fillStyle = this.colour;
         game.ctx.font = this.size+'px '+systemFont;
@@ -95,7 +95,7 @@ export class ButtonWidget implements Widget{
     }
 
     draw(game : Game){
-        const position : Point = this.area.getTopLeft();
+        const position : CanvasPoint = this.area.getTopLeft();
 
         game.ctx.fillStyle = this.bgColour;
         game.ctx.fillRect(position.x, position.y, this.width, this.height);
